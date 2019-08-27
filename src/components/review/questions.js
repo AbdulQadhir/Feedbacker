@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button,Text,Image } from 'react-native';
+import { View, TextInput, Button,Text, TouchableOpacity, ScrollView } from 'react-native';
 import { btnStyles, txtStyles, containerStyle } from '../styles';
 import CheckBox from 'react-native-check-box';
-import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import GridList from 'react-native-grid-list';
 import { Dimensions } from 'react-native';
 const {height, width} = Dimensions.get('window');
+import Radio from './radio';
 
 const questions = [
   {
@@ -21,9 +21,9 @@ const questions = [
     ]
   },
   {
-    id: 1,
+    id: 2,
     question: "Question 2",
-    question_type: "multi",
+    question_type: "radio",
     answers: [
       "ans 1",
       "ans 2",
@@ -34,7 +34,7 @@ const questions = [
     shopId: "shop2"
   },
   {
-    id: 1,
+    id: 4,
     question: "Question 4",
     question_type: "radio",
     answers: [
@@ -47,7 +47,7 @@ const questions = [
     shopId: "shop3"
   },
   {
-    id: 1,
+    id: 5,
     question: "Question 5",
     question_type: "text",
     answers: [
@@ -56,51 +56,57 @@ const questions = [
   }
 ];
 
-
 export default class App extends Component {
+  static navigationOptions = {
+    title: 'CUSTOMER REVIEW',
+    headerStyle: {
+      backgroundColor: '#f03636',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      color: "#fff",
+      fontWeight: 'bold',
+    }
+  };
+
   state = {
     isChecked: false,
+    answers : []
 }
 
 renderMultiItem = ({ item, index }) => (
-  <View style={{padding:5}}>
-    <CheckBox
-      onClick={()=>{
-        this.setState({
-            isChecked:!this.state.isChecked
-        })
-      }}
-      isChecked={this.state.isChecked}
-      rightText={item}
-      checkBoxColor={"#f03636"}
-    />
-  </View>
-);
-
-renderRadio = (answers) => {
-  objArr = [];
-  for(i=0; i<answers.length; i++)
-    objArr.push({ label: answers[i], value: answers[i] })
-    
-  return (
-    <View style={{marginLeft: 20, padding: 5}}>
-      <RadioForm
-        formHorizontal={false}
-        radio_props={objArr}
-        initial={0}
-        buttonColor={"#f03636"}
-        selectedButtonColor={"#f03636"}
-        buttonSize={8}
-        onPress={(value) => {this.setState({value:value})}}
+    <View style={{padding:10}}>
+      <CheckBox
+        onClick={()=>{
+          this.setState({
+              isChecked:!this.state.isChecked
+          })
+        }}
+        isChecked={this.state.isChecked}
+        rightText={item}
+        checkBoxColor={"#f03636"}
       />
     </View>
+);
+
+selAnswer = (qstnId, answer) => {
+  let answers = this.state.answers;
+  answers[qstnId] = answer;
+  this.setState({ answers })
+}
+
+renderRadio = (qstnId, answers) => {
+    return answers.map((answer) => {
+      return (
+        <Radio isSelected={this.state.answers[qstnId] == answer} label={answer} onPress={() => this.selAnswer(qstnId, answer)} />
+      )}
   )
 }
 
 renderMulti = (answers) => {
   console.log("reult=>", JSON.stringify(answers));
   return (
-      <View style={{flex:1,flexDirection:'row', marginLeft: 20}}>
+      <View style={{ paddingHorizontal: 20 }}>
         <GridList
           showSeparator
           data={answers}
@@ -121,7 +127,7 @@ renderQstn = (qstn) => {
       }
       {
         qstn.question_type == "radio" ? 
-        this.renderRadio(qstn.answers) : <View />
+        this.renderRadio(qstn.id, qstn.answers) : <View />
       }
       {
         qstn.question_type == "text" ? 
@@ -135,16 +141,18 @@ renderQstn = (qstn) => {
 
   render() {
       return (
-        <View style={containerStyle} >
-        {questions.map(qstn => this.renderQstn(qstn))}
-         
-          <Button
-            style={btnStyles}
-            title="Next"
-            color="#f03636"
-          />
+        <ScrollView>
+          <View style={containerStyle} >
+          {questions.map(qstn => this.renderQstn(qstn))}
           
-        </View>
+            <Button
+              style={btnStyles}
+              title="Next"
+              color="#f03636"
+            />
+          
+          </View>
+        </ScrollView>
       );
   }
 }

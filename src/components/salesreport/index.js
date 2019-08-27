@@ -6,6 +6,19 @@ import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-
 
 
 export default class App extends Component {
+  
+  static navigationOptions = {
+    title: 'CUSTOMER REVIEW',
+    headerStyle: {
+      backgroundColor: '#f03636',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      color: "#fff",
+      fontWeight: 'bold',
+    }
+  };
+  
   state = {
     isChecked: false
 }

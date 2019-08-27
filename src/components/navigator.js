@@ -6,10 +6,10 @@ import { createStackNavigator,createAppContainer } from "react-navigation"
 
 const AppNavigator = createStackNavigator(
     {
-      ReviewQuestions: ReviewQuestions,
       Login: Login,
+      ReviewQuestions: ReviewQuestions,
       Review: Review,
       Sales: Sales
     }
   );
-export default App = createAppContainer(AppNavigator);
+export default createAppContainer(AppNavigator);

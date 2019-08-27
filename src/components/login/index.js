@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableOpacity,StyleSheet,Image,Text } from 'react-native';
+import { View, TextInput, TouchableOpacity,StyleSheet,Image,Text,ScrollView } from 'react-native';
 import { Dimensions } from 'react-native';
 const {height, width} = Dimensions.get('window');
 
-
 export default class App extends Component {
-  render() {
-   
+    
+    static navigationOptions = {
+        header: null,
+    };
+
+    render() {
       return (
+        <ScrollView>
           <View style={{flex:0,flexDirection:'column',justifyContent: 'space-evenly', alignItems: 'center', height:height>600 ? height : 600,width:width,backgroundColor:"#f03636",}} >
           <View>
               <Image style={{height:300,width:300}}
@@ -19,13 +23,14 @@ export default class App extends Component {
               <TextInput style={styles.txtStyles} placeholder="Password" placeholderTextColor="#fff"/>
           </View>
           <View style={{width:250}}>
-                  <TouchableOpacity  style={styles.btnStyles}>
-                        <Text style={{ textAlign:'center',
+            <TouchableOpacity onPress={()=>{ this.props.navigation.navigate("Review") }} style={styles.btnStyles}>
+                <Text style={{ textAlign:'center',
     alignSelf:'center',color:'#f03636', fontSize:25}}>Login</Text> 
                     </TouchableOpacity>
           </View>
         
           </View>
+        </ScrollView>
       );
   }
 }
