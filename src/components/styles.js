@@ -1,6 +1,5 @@
 
 export const txtStyles = {
-      flex: 1,
       backgroundColor: "transparent",
       borderBottomColor: "#CCC",
       borderBottomWidth: 1,
@@ -18,7 +17,6 @@ export const txtStyles = {
 
   export const containerStyle = {
       padding: 10,
-      flex: 1
   }
 
   

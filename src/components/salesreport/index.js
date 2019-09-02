@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import { View, TextInput, Button,Text } from 'react-native';
+import { View, TextInput, Button,Text,ScrollView } from 'react-native';
 import { btnStyles, txtStyles, containerStyle, textStyle } from '../styles';
 import CheckBox from 'react-native-check-box';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { Dimensions } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+const {height, width} = Dimensions.get('window');
+const entireScreenWidth = width;
+EStyleSheet.build({$rem: entireScreenWidth / 380});
 
 
 export default class App extends Component {
   
   static navigationOptions = {
-    title: 'CUSTOMER REVIEW',
+    title: 'SALES REPORT',
     headerStyle: {
       backgroundColor: '#f03636',
     },
@@ -41,6 +47,7 @@ export default class App extends Component {
       {label: 'Estimate/Shop visit-contact on', value: 4 }
     ];
       return (
+        <ScrollView>
         <View style={containerStyle} >
           <TextInput style={txtStyles} placeholder="Salesman" />
           <TextInput style={txtStyles} placeholder="Customer" />
@@ -51,9 +58,10 @@ export default class App extends Component {
           <TextInput style={txtStyles} placeholder="B.Exe/Reference" />
           <TextInput style={txtStyles} placeholder="Function Date" />
           <Text  style={textStyle}>Sale Lost</Text>
-          <View style={{paddingLeft:20}}>
+          <View style={eStyles.align}>
             
             <RadioForm
+                style={eStyles.radio}
                 radio_props={radio_props_lost}
                 initial={0}
                 buttonColor={"#f03636"}
@@ -63,7 +71,7 @@ export default class App extends Component {
               />
           </View>
           <Text style={textStyle}>Sale Status</Text>
-          <View style={{paddingLeft:20}}>
+          <View style={eStyles.align}>
               <RadioForm
                 radio_props={radio_props_status}
                 initial={0}
@@ -74,14 +82,27 @@ export default class App extends Component {
               />
           </View>
           <TextInput style={txtStyles} placeholder="Remarks" />
-          <View style={{marginTop:20}}>
+          <View style={eStyles.btn}>
               <Button
                 style={[btnStyles]}
-                title="Next1"
+                title="Next"
                 color="#f03636"
               />
           </View>
         </View>
+        </ScrollView>
       );
   }
 }
+
+const eStyles = EStyleSheet.create({
+  align:{
+    paddingLeft:'20 rem',
+  },
+  btn :{
+    marginTop:'20 rem'
+  },
+  radio:{
+    paddingTop:'5 rem'
+  }
+   })

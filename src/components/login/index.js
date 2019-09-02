@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity,StyleSheet,Image,Text,ScrollView } from 'react-native';
 import { Dimensions } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
+
 const {height, width} = Dimensions.get('window');
+const entireScreenWidth = width;
+EStyleSheet.build({$rem: entireScreenWidth / 380});
 
 export default class App extends Component {
     
@@ -10,50 +14,56 @@ export default class App extends Component {
     };
 
     render() {
+      const {navigate} = this.props.navigation;
       return (
-        <ScrollView>
-          <View style={{flex:0,flexDirection:'column',justifyContent: 'space-evenly', alignItems: 'center', height:height>600 ? height : 600,width:width,backgroundColor:"#f03636",}} >
+          <View style={{flex:1,flexDirection:'column',height:'100%',justifyContent: 'space-evenly', alignItems: 'center',backgroundColor:"#f03636",}} >
           <View>
-              <Image style={{height:300,width:300}}
+              <Image style={eStyles.img}
                 source={require('../../img/logo.png')}
               />
           </View>
-          <View style={{width:250}}>
-              <TextInput style={styles.txtStyles} placeholder="User name"  placeholderTextColor="#fff" />
-              <TextInput style={styles.txtStyles} placeholder="Password" placeholderTextColor="#fff"/>
+          <View style={{width:'80%'}}>
+              <TextInput style={eStyles.txtStyles} placeholder="User name"  placeholderTextColor="#fff" />
+              <TextInput style={eStyles.txtStyles} placeholder="Password" placeholderTextColor="#fff"/>
           </View>
-          <View style={{width:250}}>
-            <TouchableOpacity onPress={()=>{ this.props.navigation.navigate("Review") }} style={styles.btnStyles}>
-                <Text style={{ textAlign:'center',
-    alignSelf:'center',color:'#f03636', fontSize:25}}>Login</Text> 
+          <View style={{width:'40%'}}>
+            <TouchableOpacity onPress={()=>{ this.props.navigation.navigate("Menu") }} style={eStyles.btnStyles}>
+                <Text style={eStyles.loginBtn}>Login</Text> 
                     </TouchableOpacity>
           </View>
         
           </View>
-        </ScrollView>
       );
   }
 }
-
-const styles = StyleSheet.create({
+const eStyles = EStyleSheet.create({
+  img:{
+    height:'250 rem',
+    width:'250 rem'
+   },
   txtStyles: {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: "transparent",
       borderBottomColor: "#CCC",
       borderBottomWidth: 1,
-      marginTop: 10,
       padding: 5,
       color:'#FFF',
-      fontSize:25,
+      fontSize:'23 rem',
   },
   btnStyles:{
     flex: 1,
-    marginHorizontal: 10,
+    marginHorizontal: '10 rem',
     backgroundColor:'#FFF',
-    padding: 25,
-    borderRadius:5,
+    padding: '25 rem',
+    borderRadius:'5 rem',
     justifyContent:'center',
     alignItems:'center',
+  },
+  loginBtn:{
+    textAlign:'center',
+    alignSelf:'center',
+    color:'#f03636',
+    fontSize:'25 rem'
   }
 });

@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button,Text, TouchableOpacity } from 'react-native';
+import { Dimensions } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+const {height, width} = Dimensions.get('window');
+const entireScreenWidth = width;
+EStyleSheet.build({$rem: entireScreenWidth / 380});
+
 
 export default class Radio extends Component {
     render() {
@@ -9,8 +16,8 @@ export default class Radio extends Component {
           <TouchableOpacity
             onPress={this.props.onPress}
             style={{
-              height: 24,
-              width: 24,
+              height: 21,
+              width: 21,
               borderRadius: 12,
               borderWidth: 2,
               alignItems: 'center',
@@ -20,8 +27,8 @@ export default class Radio extends Component {
             {
               this.props.isSelected ?
                 <View style={{
-                  height: 12,
-                  width: 12,
+                  height: 10,
+                  width: 10,
                   borderRadius: 6,
                   backgroundColor: '#f03636'
                 }}/>
@@ -33,3 +40,12 @@ export default class Radio extends Component {
         )
     }
 }
+
+const eStyles = EStyleSheet.create({
+  align:{
+    padding:'10 rem',
+  },
+  alignHorizontal :{
+    paddingHorizontal:'20 rem'
+  },
+   })

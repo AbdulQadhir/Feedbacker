@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { View, TextInput, Button, Text, ScrollView } from 'react-native';
 import { btnStyles, txtStyles, containerStyle, textStyle } from '../styles';
+import { Dimensions } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
+
+const {height, width} = Dimensions.get('window');
+const entireScreenWidth = width;
+EStyleSheet.build({$rem: entireScreenWidth / 380});
 
 
 export default class App extends Component {
@@ -28,7 +34,7 @@ export default class App extends Component {
             <TextInput style={txtStyles} placeholder="Mobile Number" />
             <TextInput style={txtStyles} placeholder="Locality" />
             
-            <View style={{marginTop:20}}>
+            <View style={eStyles.btn}>
                 <Button
                   onPress={()=>{ this.props.navigation.navigate("ReviewQuestions") }}
                   style={[btnStyles]}
@@ -41,3 +47,9 @@ export default class App extends Component {
       );
   }
 }
+
+const eStyles = EStyleSheet.create({
+  btn:{
+    marginTop:'20 rem',
+  }
+   })

@@ -6,6 +6,8 @@ import GridList from 'react-native-grid-list';
 import { Dimensions } from 'react-native';
 const {height, width} = Dimensions.get('window');
 import Radio from './radio';
+import {align,alignHorizontal} from './radio';
+
 
 const questions = [
   {
@@ -23,7 +25,7 @@ const questions = [
   {
     id: 2,
     question: "Question 2",
-    question_type: "radio",
+    question_type: "multi",
     answers: [
       "ans 1",
       "ans 2",
@@ -75,43 +77,83 @@ export default class App extends Component {
 }
 
 renderMultiItem = ({ item, index }) => (
-    <View style={{padding:10}}>
+    <View style={align}>
       <CheckBox
         onClick={()=>{
-          this.setState({
-              isChecked:!this.state.isChecked
-          })
+          this.selAnswer(item.qstnId, item.answer, "multi")
         }}
-        isChecked={this.state.isChecked}
-        rightText={item}
+        isChecked={this.chkAnswer(item.qstnId, item.answer)}
+        rightText={item.answer}
         checkBoxColor={"#f03636"}
       />
     </View>
 );
 
-selAnswer = (qstnId, answer) => {
+chkAnswer = (qstnId, answer) => {
   let answers = this.state.answers;
-  answers[qstnId] = answer;
-  this.setState({ answers })
+  answerArr = answers[qstnId] ? answers[qstnId].split(",") : [];
+  return (answerArr.indexOf(answer) > -1)
 }
 
-renderRadio = (qstnId, answers) => {
-    return answers.map((answer) => {
-      return (
-        <Radio isSelected={this.state.answers[qstnId] == answer} label={answer} onPress={() => this.selAnswer(qstnId, answer)} />
-      )}
+selAnswer = (qstnId, answer, ansType) => {
+  let answers = this.state.answers;
+
+  if(ansType == "radio")
+    answers[qstnId] = answer;
+  else
+  {
+    answerArr = answers[qstnId] ? answers[qstnId].split(",") : [];
+    let index = answerArr.indexOf(answer)
+    if(index == -1)
+      answerArr.push(answer)
+    else
+      answerArr.splice(index, 1);
+
+    answers[qstnId] = answerArr.join();
+  }
+
+  
+  this.setState({ answers }, ()=>console.log("Result=>", JSON.stringify(this.state.answers)));
+}
+
+renderRadioItem = (item) => {
+  return (
+    <Radio isSelected={this.state.answers[item.item.qstnId] == item.item.answer} label={item.item.answer} onPress={() => this.selAnswer(item.item.qstnId, item.item.answer, "radio")} />
   )
 }
 
-renderMulti = (answers) => {
-  console.log("reult=>", JSON.stringify(answers));
+renderRadio = (qstnId, _answers) => {
+  let answers = [];
+  _answers.forEach(answer => {
+    answers.push({ answer, qstnId });
+  });
   return (
-      <View style={{ paddingHorizontal: 20 }}>
+    <View style={alignHorizontal}>
+      <GridList
+        showSeparator
+        data={answers}
+        numColumns={2}
+        renderItem={this.renderRadioItem}
+        style={{padding:10}}
+      />
+    </View>
+  );
+}
+
+renderMulti = (qstnId,_answers) => {
+  let answers = [];
+  _answers.forEach(answer => {
+    answers.push({ answer, qstnId });
+  });
+  return (
+      <View style={alignHorizontal}>
         <GridList
           showSeparator
           data={answers}
           numColumns={2}
           renderItem={this.renderMultiItem}
+          style={{padding:10}}
+
         />
       </View>
   );
@@ -123,7 +165,7 @@ renderQstn = (qstn) => {
       <Text>{qstn.question}</Text>
       {
         qstn.question_type == "multi" ? 
-        this.renderMulti(qstn.answers) : <View />
+        this.renderMulti(qstn.id, qstn.answers) : <View />
       }
       {
         qstn.question_type == "radio" ? 
