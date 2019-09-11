@@ -28,6 +28,8 @@ target 'FeedBacker' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'Firebase/Core', '~> 6.3.0'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'FeedBackerTests' do
     inherit! :search_paths
     # Pods for testing

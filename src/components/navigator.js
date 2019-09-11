@@ -7,10 +7,10 @@ import { createStackNavigator,createAppContainer } from "react-navigation"
 
 const AppNavigator = createStackNavigator(
     {
+      Review: Review,
       Login: Login,
       Menu:Menu,
       ReviewQuestions: ReviewQuestions,
-      Review: Review,
       Sales: Sales
     }
   );

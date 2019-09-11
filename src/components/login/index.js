@@ -16,7 +16,7 @@ export default class App extends Component {
     render() {
       const {navigate} = this.props.navigation;
       return (
-          <View style={{flex:1,flexDirection:'column',height:'100%',justifyContent: 'space-evenly', alignItems: 'center',backgroundColor:"#f03636",}} >
+          <View style={{flex:1,flexDirection:'column',height:'50%',justifyContent: 'space-evenly', alignItems: 'center',backgroundColor:"#f03636",}} >
           <View>
               <Image style={eStyles.img}
                 source={require('../../img/logo.png')}
@@ -38,8 +38,8 @@ export default class App extends Component {
 }
 const eStyles = EStyleSheet.create({
   img:{
-    height:'250 rem',
-    width:'250 rem'
+    height:'50 rem',
+    width:'50 rem'
    },
   txtStyles: {
       justifyContent: 'center',
@@ -49,13 +49,13 @@ const eStyles = EStyleSheet.create({
       borderBottomWidth: 1,
       padding: 5,
       color:'#FFF',
-      fontSize:'23 rem',
+      fontSize:'12 rem',
   },
   btnStyles:{
     flex: 1,
     marginHorizontal: '10 rem',
     backgroundColor:'#FFF',
-    padding: '25 rem',
+    padding: '12 rem',
     borderRadius:'5 rem',
     justifyContent:'center',
     alignItems:'center',
@@ -64,6 +64,6 @@ const eStyles = EStyleSheet.create({
     textAlign:'center',
     alignSelf:'center',
     color:'#f03636',
-    fontSize:'25 rem'
+    fontSize:'12 rem'
   }
 });

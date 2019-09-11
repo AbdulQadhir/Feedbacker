@@ -3,6 +3,7 @@ import { View, TextInput, Button, Text, ScrollView } from 'react-native';
 import { btnStyles, txtStyles, containerStyle, textStyle } from '../styles';
 import { Dimensions } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
+import AutoComplete from "./autocomplete";
 
 const {height, width} = Dimensions.get('window');
 const entireScreenWidth = width;
@@ -23,17 +24,43 @@ export default class App extends Component {
     }
   };
 
+  state = {
+    customerFocussed : false
+  }
+
+  componentDidMount()
+  {
+      console.log("Feedbacker=>",'Component width' );
+      
+      this.myComponent.measure( (fx, fy, width, height, px, py) => {
+          console.log("Feedbacker=>",'Component width is: ' + width)
+          console.log("Feedbacker=>",'Component height is: ' + height)
+          console.log("Feedbacker=>",'X offset to frame: ' + fx)
+          console.log("Feedbacker=>",'Y offset to frame: ' + fy)
+          console.log("Feedbacker=>",'X offset to page: ' + px)
+          console.log("Feedbacker=>",'Y offset to page: ' + py)
+      }) 
+  }
+
+  
+  unsetCustomerFocus = () => {
+    this.setState({customerFocussed: false});
+  }
+  
+  setCustomerFocus = () => {
+    this.setState({customerFocussed: true});
+  }
 
   render() {
    
       return (
         <ScrollView>
           <View style={containerStyle} >
-            <TextInput style={txtStyles} placeholder="Salesman" />
-            <TextInput style={txtStyles} placeholder="Customer" />
+            <TextInput style={txtStyles} placeholder="Salesman" onFocus={this.unsetCustomerFocus}  ref={view => { this.myComponent = view; }}  />
+            <AutoComplete style={txtStyles} placeholder="Customers" onBlur={this.unsetCustomerFocus} onFocus={this.setCustomerFocus}  isFocussed={this.state.customerFocussed} />
             <TextInput style={txtStyles} placeholder="Mobile Number" />
             <TextInput style={txtStyles} placeholder="Locality" />
-            
+            <Text>{JSON.stringify(this.state.customerFocussed)}</Text>
             <View style={eStyles.btn}>
                 <Button
                   onPress={()=>{ this.props.navigation.navigate("ReviewQuestions") }}
