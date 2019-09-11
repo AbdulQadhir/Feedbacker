@@ -16,7 +16,7 @@ export const txtStyles = {
   }
 
   export const containerStyle = {
-      padding: 10,
+      padding: 15,
   }
 
   

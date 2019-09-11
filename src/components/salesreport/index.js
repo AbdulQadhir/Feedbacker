@@ -49,14 +49,14 @@ export default class App extends Component {
       return (
         <ScrollView>
         <View style={containerStyle} >
-          <TextInput style={txtStyles} placeholder="Salesman" />
-          <TextInput style={txtStyles} placeholder="Customer" />
-          <TextInput style={txtStyles} placeholder="Mobile" />
-          <TextInput style={txtStyles} placeholder="House name" />
-          <TextInput style={txtStyles} placeholder="Locality" />
-          <TextInput style={txtStyles} placeholder="Panchayath" />
-          <TextInput style={txtStyles} placeholder="B.Exe/Reference" />
-          <TextInput style={txtStyles} placeholder="Function Date" />
+          <TextInput style={eStyles.txtStyles2} placeholder="Salesman" />
+          <TextInput style={eStyles.txtStyles2} placeholder="Customer" />
+          <TextInput style={eStyles.txtStyles2} placeholder="Mobile" />
+          <TextInput style={eStyles.txtStyles2} placeholder="House name" />
+          <TextInput style={eStyles.txtStyles2} placeholder="Locality" />
+          <TextInput style={eStyles.txtStyles2} placeholder="Panchayath" />
+          <TextInput style={eStyles.txtStyles2} placeholder="B.Exe/Reference" />
+          <TextInput style={eStyles.txtStyles2} placeholder="Function Date" />
           <Text  style={textStyle}>Sale Lost</Text>
           <View style={eStyles.align}>
             
@@ -70,7 +70,7 @@ export default class App extends Component {
                 onPress={(value) => {this.setState({value:value})}}
               />
           </View>
-          <Text style={textStyle}>Sale Status</Text>
+          <Text style={eStyles.txtStyles2}>Sale Status</Text>
           <View style={eStyles.align}>
               <RadioForm
                 radio_props={radio_props_status}
@@ -84,6 +84,7 @@ export default class App extends Component {
           <TextInput style={txtStyles} placeholder="Remarks" />
           <View style={eStyles.btn}>
               <Button
+                onPress={()=>{this.props.navigation.navigate("ThankYou")}}
                 style={[btnStyles]}
                 title="Next"
                 color="#f03636"
@@ -104,5 +105,14 @@ const eStyles = EStyleSheet.create({
   },
   radio:{
     paddingTop:'5 rem'
+  },
+  txtStyles2 : {
+    fontSize : "15 rem",
+    backgroundColor: "transparent",
+    borderBottomColor: "#CCC",
+    borderBottomWidth: 1,
+    marginTop: 10,
+    padding: "5 rem",
+    marginHorizontal: "10 rem"
   }
    })

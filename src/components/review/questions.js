@@ -4,10 +4,26 @@ import { btnStyles, txtStyles, containerStyle } from '../styles';
 import CheckBox from 'react-native-check-box';
 import GridList from 'react-native-grid-list';
 import { Dimensions } from 'react-native';
-const {height, width} = Dimensions.get('window');
+
 import Radio from './radio';
 import {align,alignHorizontal} from './radio';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
+const {height, width} = Dimensions.get('window');
+const entireScreenWidth = width;
+EStyleSheet.build({$rem: entireScreenWidth / 380});
+
+
+const eStyles = EStyleSheet.create({
+  radioStyle : {
+    fontSize : "15 rem",
+    marginLeft: "5 rem",
+    marginBottom: 5
+  },
+  qstStyle : {
+    fontSize : "15 rem",
+  }
+   })
 
 const questions = [
   {
@@ -84,6 +100,7 @@ renderMultiItem = ({ item, index }) => (
         }}
         isChecked={this.chkAnswer(item.qstnId, item.answer)}
         rightText={item.answer}
+        rightTextStyle={eStyles.qstStyle}
         checkBoxColor={"#f03636"}
       />
     </View>
@@ -118,7 +135,7 @@ selAnswer = (qstnId, answer, ansType) => {
 
 renderRadioItem = (item) => {
   return (
-    <Radio isSelected={this.state.answers[item.item.qstnId] == item.item.answer} label={item.item.answer} onPress={() => this.selAnswer(item.item.qstnId, item.item.answer, "radio")} />
+    <Radio style={eStyles.radioStyle} isSelected={this.state.answers[item.item.qstnId] == item.item.answer} label={item.item.answer} onPress={() => this.selAnswer(item.item.qstnId, item.item.answer, "radio")} />
   )
 }
 
@@ -162,7 +179,7 @@ renderMulti = (qstnId,_answers) => {
 renderQstn = (qstn) => {
   return (
     <View>
-      <Text>{qstn.question}</Text>
+      <Text style={eStyles.qstStyle} >{qstn.question}</Text>
       {
         qstn.question_type == "multi" ? 
         this.renderMulti(qstn.id, qstn.answers) : <View />

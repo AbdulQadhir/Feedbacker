@@ -7,7 +7,6 @@ const {height, width} = Dimensions.get('window');
 const entireScreenWidth = width;
 EStyleSheet.build({$rem: entireScreenWidth / 380});
 
-
 export default class App extends Component {
   static navigationOptions = {
     header: null
@@ -35,7 +34,9 @@ const eStyles = EStyleSheet.create({
 
   txtStyles: {
       color:'#FFF',
-      fontSize:'30 rem',
+      fontSize:'25 rem',
+      alignItems: "center",
+      textAlign : "center"
   },
   btnStyles:{
     flexDirection:'column',
@@ -44,6 +45,7 @@ const eStyles = EStyleSheet.create({
     backgroundColor:'red',
     alignItems:'center',
     justifyContent:'space-evenly',
+    alignItems: "center",
     elevation:5,
     borderRadius:5,
   },

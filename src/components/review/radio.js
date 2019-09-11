@@ -12,7 +12,7 @@ export default class Radio extends Component {
     render() {
         return (
         <View
-         style={{ flexDirection: "row" }} >
+         style={{ flexDirection: "row", padding: 5 }} >
           <TouchableOpacity
             onPress={this.props.onPress}
             style={{
@@ -22,7 +22,8 @@ export default class Radio extends Component {
               borderWidth: 2,
               alignItems: 'center',
               justifyContent: 'center',
-              borderColor: "#f03636"
+              borderColor: "#f03636",
+              marginTop: 5
             }}>
             {
               this.props.isSelected ?
@@ -35,7 +36,7 @@ export default class Radio extends Component {
                 : null
             }
           </TouchableOpacity>
-          <Text style={{ marginLeft : 5 }} >{this.props.label}</Text>
+          <Text style={this.props.style} >{this.props.label}</Text>
         </View>
         )
     }
